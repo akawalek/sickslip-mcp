@@ -1,5 +1,7 @@
 # sickslip-mcp
 
+[![MCP Badge](https://lobehub.com/badge/mcp-full/akawalek-sickslip-mcp)](https://lobehub.com/mcp/akawalek-sickslip-mcp)
+
 Model Context Protocol (MCP) server that lets Claude (and any MCP-compliant client — Cursor, Zed, Continue, etc.) verify the authenticity of a [SickSlip](https://www.sickslip.co) doctor's note directly from a conversation.
 
 When an HR person, manager, or patient asks the assistant to verify a doctor's note, the assistant calls this server's `verify_sickslip_note` tool with the verification code printed on the note PDF. The server queries the public SickSlip verification endpoint and returns:
