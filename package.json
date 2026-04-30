@@ -1,6 +1,6 @@
 {
   "name": "sickslip-mcp",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Model Context Protocol server for verifying SickSlip doctor's notes. Lets Claude (and any MCP-compliant client) verify a SickSlip note's authenticity, dates, and physician credentials directly.",
   "type": "module",
   "main": "src/index.js",

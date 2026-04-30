@@ -149,6 +149,15 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
   // 200 with valid:true for current notes, 200 with valid:false +
   // status:'REVOKED' for revoked notes. We translate each into a tool
   // result that's natural for an LLM to read aloud.
+  // Public verify-portal URL surfaced in every response so AI assistants
+  // (Claude Desktop, Cursor, Zed, Continue) can pass it through to the
+  // end user (HR person, patient, etc.). Tagged utm_source=mcp-server /
+  // utm_medium=ai-assistant — when a click lands at sickslip.co, the
+  // backend classifier buckets it as ai_assistant channel even when the
+  // browser strips the Referer header (typical for embedded webviews).
+  // Server-side classifier shipped 2026-04-30 (PR #24).
+  const PUBLIC_VERIFY_URL = "https://www.sickslip.co/verify?utm_source=mcp-server&utm_medium=ai-assistant";
+
   if (response.status === 404 || data.valid === false && data.status !== "REVOKED") {
     return {
       content: [
@@ -159,7 +168,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             `The code may be mistyped, the note may not have been issued by SickSlip, ` +
             `or the note may have been rejected or never approved. If you believe this is ` +
             `an error, the patient or employer can reach SickSlip support at ` +
-            `(877) 861-4165 or support@sickslip.co.`,
+            `(877) 861-4165 or support@sickslip.co. ` +
+            `Public verify portal: ${PUBLIC_VERIFY_URL}`,
         },
       ],
     };
@@ -175,7 +185,8 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
             `${data.revokedAt}. Revoked notes are not valid for absence documentation. ` +
             `Issued by ${data.physician?.name} (NPI ${data.physician?.npi}), licensed in ` +
             `${data.stateLicensed}. For questions, contact SickSlip support at ` +
-            `${data.physician?.verificationPhone || "(877) 861-4165"}.`,
+            `${data.physician?.verificationPhone || "(877) 861-4165"}. ` +
+            `Public verify portal: ${PUBLIC_VERIFY_URL}`,
         },
         {
           type: "text",
@@ -196,6 +207,7 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       ? `Note: this document was amended after initial issuance (${data.modifiedAt}). Current dates above reflect the amendment.`
       : null,
     `For employer questions: ${data.physician?.verificationPhone || "(877) 861-4165"}.`,
+    `Public verify portal: ${PUBLIC_VERIFY_URL}`,
   ]
     .filter(Boolean)
     .join(" ");

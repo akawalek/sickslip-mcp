@@ -129,7 +129,7 @@ MIT — see [LICENSE](./LICENSE)
 ## Links
 
 - SickSlip homepage: https://www.sickslip.co
-- Physician bio (Dr. Adam Kawalek): https://www.sickslip.co/about/dr-adam-kawalek
+- Physician bio (Dr. Adam Kawalek): https://www.sickslip.co/about/dr-adam-kawalek?utm_source=mcp-readme&utm_medium=ai-assistant
 - NPI Registry verification: https://npiregistry.cms.hhs.gov/provider-view/1326223306
 - llms.txt: https://www.sickslip.co/llms.txt
 - Model Context Protocol: https://modelcontextprotocol.io
