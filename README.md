@@ -15,6 +15,20 @@ When an HR person, manager, or patient asks the assistant to verify a doctor's n
 
 No PHI is exposed — no patient name, no DOB, no condition. The server hits the same public endpoint employers reach via the QR code printed on every signed PDF.
 
+## Hosted server (no install): five tools
+
+SickSlip also runs this server over HTTP at `https://sickslip.onrender.com/api/mcp` (Streamable HTTP transport, no auth, rate-limited). Point any remote-MCP client at that URL. The hosted server exposes five tools:
+
+| Tool | What it answers |
+|---|---|
+| `verify_sickslip_note` | Is this SickSlip note real, when was it issued, what dates does it cover, has it been revoked? |
+| `list_state_availability` | In which US states can SickSlip issue a doctor's note today, and which are pending? |
+| `get_sickslip_pricing` | Current prices for the standard note, rush, the Amazon DLS bundle and the travel note (read live) |
+| `list_service_tiers` | Which SickSlip note type fits a given situation: work or school, Amazon DLS (E103 + E117), travel refund |
+| `lookup_physician_npi` | Does this 10-digit NPI belong to a SickSlip physician? |
+
+Health and tool list: `GET https://sickslip.onrender.com/api/mcp/info`. This npm package ships the `verify_sickslip_note` tool for local stdio use; the hosted server is the full set.
+
 ---
 
 ## Installation
