@@ -32,7 +32,7 @@
   "homepage": "https://www.sickslip.co",
   "repository": {
     "type": "git",
-    "url": "https://github.com/akawalek/sickslip-mcp.git"
+    "url": "git+https://github.com/akawalek/sickslip-mcp.git"
   },
   "bugs": {
     "url": "https://github.com/akawalek/sickslip-mcp/issues"
